@@ -23,6 +23,7 @@ export default function EditForm({ params }: Props) {
   const router = useRouter();
   const [record, setRecord] = useState<any>(null);
   const [selectedTheme, setSelectedTheme] = useState("light");
+  const [selectedBackground, setSelectedBackground] = useState("None");
   const getFormData = useCallback(async () => {
     if (user) {
       const emailAddress = user.primaryEmailAddress?.emailAddress;
@@ -40,6 +41,9 @@ export default function EditForm({ params }: Props) {
           const parsedForm = JSON.parse(result[0].jsonform);
           setRecord(result[0]);
           setJsonForm(parsedForm);
+          if (result[0].background)
+            setSelectedBackground(result[0]?.background);
+          if (result[0].theme) setSelectedTheme(result[0]?.theme);
         }
       } else {
         console.error("User email address is undefined");
@@ -71,7 +75,8 @@ export default function EditForm({ params }: Props) {
       .set({ jsonform: JSON.stringify(updatedJsonForm) })
       .where(
         and(eq(JsonForms.id, record.id), eq(JsonForms.createdBy, emailAddress))
-      );
+      )
+      .returning({ id: JsonForms.id });
     toast("Updated successfully ✅.");
   };
 
@@ -84,6 +89,27 @@ export default function EditForm({ params }: Props) {
     updateJsonFormInDb(updatedJsonForm);
   };
 
+  const updateControllerFields = async (value: string, columnName: string) => {
+    const emailAddress = user?.primaryEmailAddress?.emailAddress;
+    if (!emailAddress) {
+      console.error("User email address is undefined");
+      return;
+    }
+    if (!value || !columnName) {
+      console.error("Controller field is passed undefined");
+      return;
+    }
+    const result = await db
+      .update(JsonForms)
+      .set({
+        [columnName]: value,
+      })
+      .where(
+        and(eq(JsonForms.id, record.id), eq(JsonForms.createdBy, emailAddress))
+      )
+      .returning({ id: JsonForms.id });
+    toast("Updated successfully ✅.");
+  };
   return (
     <div className="p-10">
       <h2
@@ -95,9 +121,21 @@ export default function EditForm({ params }: Props) {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="p-5 border rounded-lg shadow-md">
-          <Controller />
+          <Controller
+            selectedTheme={(value) => {
+              updateControllerFields(value, "theme");
+              setSelectedTheme(value);
+            }}
+            selectedBackground={(value) => {
+              updateControllerFields(value, "background");
+              setSelectedBackground(value);
+            }}
+          />
         </div>
-        <div className="md:col-span-2 border rounded-lg p-5 min-h-screen flex items-center justify-center">
+        <div
+          className="md:col-span-2 border rounded-lg p-5 min-h-screen flex items-center justify-center"
+          style={{ backgroundImage: selectedBackground }}
+        >
           <FormUi
             jsonForm={jsonForm}
             selectedTheme={selectedTheme}

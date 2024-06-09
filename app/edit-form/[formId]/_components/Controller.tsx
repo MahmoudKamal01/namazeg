@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -7,14 +8,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { THEMES } from "@/app/_data/Themes";
+import GRADIENTS from "@/app/_data/GradientBg";
+import { Button } from "@/components/ui/button";
 
-type Props = {};
+type Props = {
+  selectedTheme: (theme: string) => void;
+  selectedBackground: (bg: string) => void;
+};
 
-export default function Controller({ selectedTheme }: Props) {
+export default function Controller({
+  selectedTheme,
+  selectedBackground,
+}: Props) {
+  const [showMore, setShowMore] = useState<boolean>(false);
+
+  const visibleGradients = showMore ? GRADIENTS : GRADIENTS.slice(0, 6);
+
   return (
     <div>
-      <h2>Select Theme</h2>
-      <Select onValueChange={(value) => selectedTheme(value)}>
+      {/* Theme selection controller */}
+      <h2 className="my-1">Themes</h2>
+      <Select onValueChange={(value: string) => selectedTheme(value)}>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Theme" />
         </SelectTrigger>
@@ -22,9 +36,9 @@ export default function Controller({ selectedTheme }: Props) {
           {THEMES.map((theme, index) => (
             <SelectItem key={index} value={theme.theme}>
               <div className="flex gap-3">
-                <div className="flex ">
+                <div className="flex">
                   <div
-                    className="h-5 w-5"
+                    className="h-5 w-5 rounded-l-lg"
                     style={{ backgroundColor: theme.primary }}
                   ></div>
                   <div
@@ -36,7 +50,7 @@ export default function Controller({ selectedTheme }: Props) {
                     style={{ backgroundColor: theme.accent }}
                   ></div>
                   <div
-                    className="h-5 w-5"
+                    className="h-5 w-5 rounded-r-lg"
                     style={{ backgroundColor: theme.neutral }}
                   ></div>
                 </div>
@@ -46,6 +60,31 @@ export default function Controller({ selectedTheme }: Props) {
           ))}
         </SelectContent>
       </Select>
+
+      {/* Background selection controller */}
+      <h2 className="mt-8 my-1">Background</h2>
+      <div className="grid grid-cols-3 gap-5">
+        {visibleGradients.map((bg, index) => (
+          <div
+            key={index}
+            onClick={() => selectedBackground(bg.gradient)}
+            className={`w-full h-[70px] rounded-lg flex items-center justify-center ${
+              bg.name === "None" && "border border-black"
+            } hover:border-black hover:border-2 hover:scale-110 hover:cursor-pointer`}
+            style={{ background: bg.gradient }}
+          >
+            {bg.name === "None" && bg.name}
+          </div>
+        ))}
+      </div>
+      <Button
+        variant="ghost"
+        size="sm"
+        className="my-1 w-full"
+        onClick={() => setShowMore(!showMore)}
+      >
+        {showMore ? "Show less" : "Show more"}
+      </Button>
     </div>
   );
 }
