@@ -58,7 +58,7 @@ export default function SideNav({}: Props) {
           </h2>
         ))}
       </div>
-      <div className="fixed bottom-20 p-6 w-64">
+      <div className=" bottom-20 p-6 w-64">
         <Button className="w-full">+ Create Form</Button>
         <div className="my-7">
           <Progress value={33} />

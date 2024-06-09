@@ -9,11 +9,11 @@ type Props = { children: React.ReactNode };
 export default function DashboardLayout({ children }: Props) {
   return (
     <SignedIn>
-      <div className="h-full">
-        <div className="h-full md:w-64 fixed">
+      <div className="flex">
+        <div className=" md:w-64 ">
           <SideNav />
         </div>
-        <div className="md:ml-64">{children}</div>
+        <div className="w-full">{children}</div>
       </div>
     </SignedIn>
   );

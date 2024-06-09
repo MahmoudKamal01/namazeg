@@ -13,15 +13,24 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import FieldEdit from "./FieldEdit";
 
-type Props = { jsonForm: jsonForm; onFieldUpdate: any; deleteField: any };
+type Props = {
+  jsonForm: jsonForm;
+  onFieldUpdate: any;
+  deleteField: any;
+  selectedTheme: string;
+};
 
 export default function FormUi({
   jsonForm,
   onFieldUpdate,
   deleteField,
+  selectedTheme,
 }: Props) {
   return (
-    <div className="border p-5 md:w-[600px] rounded-lg flex-col space-y-4">
+    <div
+      className="border p-5 md:w-[600px] rounded-lg flex-col space-y-4"
+      data-theme={selectedTheme}
+    >
       <h2 className="font-bold text-center text-2xl">{jsonForm?.title}</h2>
       <h2 className="text-sm text-gray-400 text-center">{jsonForm?.heading}</h2>
 
@@ -39,7 +48,7 @@ export default function FormUi({
           </div>
 
           {field.type === "select" ? (
-            <div className="w-full">
+            <div className="w-full bg-transparent">
               <label className="text-xs text-gray-500">{field.label}</label>
               <div className="my-3 placeholder-red-400">
                 <Select>
