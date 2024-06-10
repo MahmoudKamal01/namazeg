@@ -10,6 +10,7 @@ import FormUi from "./_components/FormUi";
 import { jsonForm } from "@/types";
 import { toast } from "sonner";
 import Controller from "./_components/Controller";
+import { borderStyles } from "@/app/_data/BorderStyles";
 
 type Params = {
   formId: string;
@@ -24,6 +25,10 @@ export default function EditForm({ params }: Props) {
   const [record, setRecord] = useState<any>(null);
   const [selectedTheme, setSelectedTheme] = useState("light");
   const [selectedBackground, setSelectedBackground] = useState("None");
+
+  const [selectedBorderStyle, setSelectedBorderStyle] = useState(
+    borderStyles.border
+  );
   const getFormData = useCallback(async () => {
     if (user) {
       const emailAddress = user.primaryEmailAddress?.emailAddress;
@@ -89,7 +94,7 @@ export default function EditForm({ params }: Props) {
     updateJsonFormInDb(updatedJsonForm);
   };
 
-  const updateControllerFields = async (value: string, columnName: string) => {
+  const updateControllerFields = async (value: any, columnName: string) => {
     const emailAddress = user?.primaryEmailAddress?.emailAddress;
     if (!emailAddress) {
       console.error("User email address is undefined");
@@ -130,6 +135,8 @@ export default function EditForm({ params }: Props) {
               updateControllerFields(value, "background");
               setSelectedBackground(value);
             }}
+            setSelectedBorderStyle={setSelectedBorderStyle}
+            updateControllerFields={updateControllerFields}
           />
         </div>
         <div
@@ -141,6 +148,7 @@ export default function EditForm({ params }: Props) {
             selectedTheme={selectedTheme}
             onFieldUpdate={onFieldUpdate}
             deleteField={(index: any) => deleteField(index)}
+            selectedBorderStyle={selectedBorderStyle}
           />
         </div>
       </div>

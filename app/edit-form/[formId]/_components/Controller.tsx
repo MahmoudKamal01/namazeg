@@ -10,15 +10,20 @@ import {
 import { THEMES } from "@/app/_data/Themes";
 import GRADIENTS from "@/app/_data/GradientBg";
 import { Button } from "@/components/ui/button";
+import { borderStyles } from "@/app/_data/BorderStyles";
 
 type Props = {
   selectedTheme: (theme: string) => void;
   selectedBackground: (bg: string) => void;
+  setSelectedBorderStyle: any;
+  updateControllerFields: any;
 };
 
 export default function Controller({
   selectedTheme,
   selectedBackground,
+  setSelectedBorderStyle,
+  updateControllerFields,
 }: Props) {
   const [showMore, setShowMore] = useState<boolean>(false);
 
@@ -94,14 +99,35 @@ export default function Controller({
       <div>
         <h2 className="mt-8 my-1">Style</h2>
         <div className="flex h-[120px] justify-between space-x-4">
-          <div className="bg-amber-100 flex-1 rounded-lg flex justify-end">
-            <div className="bg-white w-3/4 h-3/5 rounded-bl-3xl  drop-shadow-2xl shadow-2xl "></div>
+          <div
+            className="bg-amber-100 flex-1 rounded-lg flex flex-col items-end "
+            onClick={() => {
+              setSelectedBorderStyle(borderStyles.default);
+              updateControllerFields(borderStyles.default, "styles");
+            }}
+          >
+            <div className="bg-white w-3/4 h-3/5 rounded-bl-3xl drop-shadow-2xl shadow-2xl hover:scale-110 hover:cursor-pointer"></div>
+            <p>Default</p>
           </div>
-          <div className="bg-orange-200 flex-1 rounded-lg flex  justify-end">
-            <div className="bg-white w-3/4 h-3/5 rounded-bl-3xl drop-shadow-2xl shadow-2xl border-b-[12px] border-l-4 border-black"></div>
+          <div className="bg-orange-200 flex-1 rounded-lg flex flex-col items-end ">
+            <div
+              className="bg-white w-3/4 h-3/5 rounded-bl-3xl drop-shadow-2xl shadow-2xl border-b-[12px] border-l-4 border-black hover:scale-110 hover:cursor-pointer"
+              onClick={() => {
+                setSelectedBorderStyle(borderStyles.retro);
+                updateControllerFields(borderStyles.retro, "styles");
+              }}
+            ></div>
+            <p>Retro</p>
           </div>
-          <div className="bg-indigo-200 flex-1 rounded-lg flex  justify-end">
-            <div className="bg-white w-3/4 h-3/5 rounded-bl-3xl drop-shadow-2xl shadow-2xl border-b-2 border-l-4 border-black"></div>
+          <div className="bg-indigo-200 flex-1 rounded-lg flex flex-col items-end">
+            <div
+              className="bg-white w-3/4 h-3/5 rounded-bl-3xl drop-shadow-2xl shadow-2xl border-b-2 border-l-4 border-black hover:scale-110 hover:cursor-pointer"
+              onClick={() => {
+                setSelectedBorderStyle(borderStyles.border);
+                updateControllerFields(borderStyles.border, "styles");
+              }}
+            ></div>
+            <p>Border</p>
           </div>
         </div>
       </div>

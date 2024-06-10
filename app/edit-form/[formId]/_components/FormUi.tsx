@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { jsonForm, Option } from "@/types";
-import React from "react";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -18,6 +18,7 @@ type Props = {
   onFieldUpdate: any;
   deleteField: any;
   selectedTheme: string;
+  selectedBorderStyle: any;
 };
 
 export default function FormUi({
@@ -25,10 +26,11 @@ export default function FormUi({
   onFieldUpdate,
   deleteField,
   selectedTheme,
+  selectedBorderStyle,
 }: Props) {
   return (
     <div
-      className="border p-5 md:w-[600px] rounded-lg flex-col space-y-4"
+      className={`border p-5 md:w-[600px] rounded-lg flex-col space-y-4 ${selectedBorderStyle}`}
       data-theme={selectedTheme}
     >
       <h2 className="font-bold text-center text-2xl">{jsonForm?.title}</h2>
