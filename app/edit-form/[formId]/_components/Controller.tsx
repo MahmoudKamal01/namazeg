@@ -15,15 +15,13 @@ import { borderStyles } from "@/app/_data/BorderStyles";
 type Props = {
   selectedTheme: (theme: string) => void;
   selectedBackground: (bg: string) => void;
-  setSelectedBorderStyle: any;
-  updateControllerFields: any;
+  selectedBorderStyle: any;
 };
 
 export default function Controller({
   selectedTheme,
   selectedBackground,
-  setSelectedBorderStyle,
-  updateControllerFields,
+  selectedBorderStyle,
 }: Props) {
   const [showMore, setShowMore] = useState<boolean>(false);
 
@@ -102,8 +100,7 @@ export default function Controller({
           <div
             className="bg-amber-100 flex-1 rounded-lg flex flex-col items-end "
             onClick={() => {
-              setSelectedBorderStyle(borderStyles.default);
-              updateControllerFields(borderStyles.default, "styles");
+              selectedBorderStyle(borderStyles.default);
             }}
           >
             <div className="bg-white w-3/4 h-3/5 rounded-bl-3xl drop-shadow-2xl shadow-2xl hover:scale-110 hover:cursor-pointer"></div>
@@ -113,8 +110,7 @@ export default function Controller({
             <div
               className="bg-white w-3/4 h-3/5 rounded-bl-3xl drop-shadow-2xl shadow-2xl border-b-[12px] border-l-4 border-black hover:scale-110 hover:cursor-pointer"
               onClick={() => {
-                setSelectedBorderStyle(borderStyles.retro);
-                updateControllerFields(borderStyles.retro, "styles");
+                selectedBorderStyle(borderStyles.retro);
               }}
             ></div>
             <p>Retro</p>
@@ -123,8 +119,7 @@ export default function Controller({
             <div
               className="bg-white w-3/4 h-3/5 rounded-bl-3xl drop-shadow-2xl shadow-2xl border-b-2 border-l-4 border-black hover:scale-110 hover:cursor-pointer"
               onClick={() => {
-                setSelectedBorderStyle(borderStyles.border);
-                updateControllerFields(borderStyles.border, "styles");
+                selectedBorderStyle(borderStyles.border);
               }}
             ></div>
             <p>Border</p>

@@ -19,6 +19,7 @@ type Props = {
   deleteField: any;
   selectedTheme: string;
   selectedBorderStyle: any;
+  editable?: boolean;
 };
 
 export default function FormUi({
@@ -27,6 +28,7 @@ export default function FormUi({
   deleteField,
   selectedTheme,
   selectedBorderStyle,
+  editable = true,
 }: Props) {
   return (
     <div
@@ -39,20 +41,24 @@ export default function FormUi({
       {jsonForm?.fields?.map((field, index) => (
         <div
           key={index}
-          className="relative border border-dashed border-primary flex items-center justify-center p-4 rounded-md"
+          className={`relative   flex items-center justify-center rounded-md ${
+            editable ? "border border-dashed border-primary p-4" : ""
+          }`}
         >
-          <div className="absolute top-0 right-0 m-2">
-            <FieldEdit
-              defaultValue={field}
-              onUpdate={(value: any) => onFieldUpdate(value, index)}
-              deleteField={() => deleteField(index)}
-            />
-          </div>
+          {editable && (
+            <div className="absolute top-0 right-0 m-2">
+              <FieldEdit
+                defaultValue={field}
+                onUpdate={(value: any) => onFieldUpdate(value, index)}
+                deleteField={() => deleteField(index)}
+              />
+            </div>
+          )}
 
           {field.type === "select" ? (
-            <div className="w-full bg-transparent">
-              <label className="text-xs text-gray-500">{field.label}</label>
-              <div className="my-3 placeholder-red-400">
+            <div className="my-2 w-full bg-transparent">
+              <label className="text-md text-gray-500">{field.label}</label>
+              <div className=" placeholder-red-400">
                 <Select>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder={field.placeholder} />
@@ -68,8 +74,8 @@ export default function FormUi({
               </div>
             </div>
           ) : field.type === "radio" ? (
-            <div className="w-full">
-              <label className="text-xs text-gray-500">{field.label}</label>
+            <div className="my-2 w-full">
+              <label className="text-md text-gray-500">{field.label}</label>
               <RadioGroup>
                 {field.options?.map((option: Option, index) => (
                   <div key={index} className="flex items-center space-x-2">
@@ -80,7 +86,7 @@ export default function FormUi({
               </RadioGroup>
             </div>
           ) : field.type === "checkbox" ? (
-            <div className="my-3 w-full">
+            <div className=" w-full">
               {field.options ? (
                 <div>
                   <h2>{field.label}</h2>
@@ -99,8 +105,8 @@ export default function FormUi({
               )}
             </div>
           ) : (
-            <div className="my-3 w-full">
-              <label className="text-xs text-gray-500">{field.label}</label>
+            <div className="my-2 w-full">
+              <label className="text-md text-gray-500">{field.label}</label>
               <Input
                 type={field?.type}
                 name={field?.name}

@@ -1,7 +1,7 @@
 const GRADIENTS = [
   {
     name: "None",
-    gradient: "",
+    gradient: "linear-gradient(to right, #fff, #fff)",
   },
   {
     name: "Sunrise",

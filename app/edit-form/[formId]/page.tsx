@@ -3,7 +3,7 @@ import { db } from "@/configs";
 import { JsonForms } from "@/configs/schema";
 import { useUser } from "@clerk/nextjs";
 import { and, eq } from "drizzle-orm";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Share2, SquareArrowOutUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, useCallback } from "react";
 import FormUi from "./_components/FormUi";
@@ -11,6 +11,8 @@ import { jsonForm } from "@/types";
 import { toast } from "sonner";
 import Controller from "./_components/Controller";
 import { borderStyles } from "@/app/_data/BorderStyles";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type Params = {
   formId: string;
@@ -49,6 +51,7 @@ export default function EditForm({ params }: Props) {
           if (result[0].background)
             setSelectedBackground(result[0]?.background);
           if (result[0].theme) setSelectedTheme(result[0]?.theme);
+          if (result[0].style) setSelectedBorderStyle(result[0]?.style);
         }
       } else {
         console.error("User email address is undefined");
@@ -104,7 +107,7 @@ export default function EditForm({ params }: Props) {
       console.error("Controller field is passed undefined");
       return;
     }
-    const result = await db
+    await db
       .update(JsonForms)
       .set({
         [columnName]: value,
@@ -117,13 +120,27 @@ export default function EditForm({ params }: Props) {
   };
   return (
     <div className="p-10">
-      <h2
-        onClick={() => router.back()}
-        className="flex gap-2 items-center my-5 cursor-pointer hover:font-bold"
-      >
-        <ArrowLeft />
-        Back
-      </h2>
+      <div className="flex justify-between items-center">
+        <h2
+          onClick={() => router.back()}
+          className="flex gap-2 items-center my-5 cursor-pointer hover:font-bold"
+        >
+          <ArrowLeft />
+          Back
+        </h2>
+        <div className="flex gap-2">
+          <Link href={"/aiform/" + record?.id} target="_blank">
+            <Button className="flex gap-2">
+              <SquareArrowOutUpRight /> Live Preview
+            </Button>
+          </Link>
+
+          <Button className="flex gap-2 bg-green-600 hover:bg-green-700">
+            <Share2 />
+            Share
+          </Button>
+        </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="p-5 border rounded-lg shadow-md">
           <Controller
@@ -135,8 +152,10 @@ export default function EditForm({ params }: Props) {
               updateControllerFields(value, "background");
               setSelectedBackground(value);
             }}
-            setSelectedBorderStyle={setSelectedBorderStyle}
-            updateControllerFields={updateControllerFields}
+            selectedBorderStyle={(value: any) => {
+              updateControllerFields(value, "style");
+              setSelectedBorderStyle(value);
+            }}
           />
         </div>
         <div
