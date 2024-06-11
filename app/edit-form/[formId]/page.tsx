@@ -61,6 +61,7 @@ export default function EditForm({ params }: Props) {
 
   useEffect(() => {
     getFormData();
+    console.log(record);
   }, [getFormData]);
 
   const onFieldUpdate = (value: any, index: any) => {
@@ -162,13 +163,16 @@ export default function EditForm({ params }: Props) {
           className="md:col-span-2 border rounded-lg p-5 min-h-screen flex items-center justify-center"
           style={{ backgroundImage: selectedBackground }}
         >
-          <FormUi
-            jsonForm={jsonForm}
-            selectedTheme={selectedTheme}
-            onFieldUpdate={onFieldUpdate}
-            deleteField={(index: any) => deleteField(index)}
-            selectedBorderStyle={selectedBorderStyle}
-          />
+          {record && (
+            <FormUi
+              jsonForm={jsonForm}
+              selectedTheme={selectedTheme}
+              onFieldUpdate={onFieldUpdate}
+              deleteField={(index: any) => deleteField(index)}
+              selectedBorderStyle={selectedBorderStyle}
+              formId={record.id}
+            />
+          )}
         </div>
       </div>
     </div>
