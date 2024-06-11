@@ -19,3 +19,13 @@ export type jsonForm = {
   subheading?: string;
   fields?: formField[];
 };
+
+export interface form {
+  background: string;
+  createdAt: string;
+  createdBy: string;
+  id: number;
+  jsonform: string;
+  style: string;
+  theme: string;
+}

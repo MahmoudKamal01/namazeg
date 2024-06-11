@@ -4,6 +4,8 @@ import { JsonForms } from "@/configs/schema";
 import { useUser } from "@clerk/nextjs";
 import { desc, eq } from "drizzle-orm";
 import React, { useEffect, useState } from "react";
+import FormListItem from "./FormListItem";
+import { form } from "@/types";
 
 type Props = {};
 
@@ -30,10 +32,12 @@ export default function FormList({}: Props) {
     }
   }
   return (
-    <div className="mt-5">
-      {formList.map((form: any, index: any) => {
-        <div></div>;
-      })}
+    <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-5">
+      {formList.map((form: form) => (
+        <div key={form?.id} className="bg-white shadow-md rounded-md p-4">
+          <FormListItem form={form} refreshData={GetFormList} />
+        </div>
+      ))}
     </div>
   );
 }

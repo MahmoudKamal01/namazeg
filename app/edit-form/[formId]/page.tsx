@@ -13,6 +13,7 @@ import Controller from "./_components/Controller";
 import { borderStyles } from "@/app/_data/BorderStyles";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { RWebShare } from "react-web-share";
 
 type Params = {
   formId: string;
@@ -136,10 +137,23 @@ export default function EditForm({ params }: Props) {
             </Button>
           </Link>
 
-          <Button className="flex gap-2 bg-green-600 hover:bg-green-700">
-            <Share2 />
-            Share
-          </Button>
+          <div>
+            <RWebShare
+              data={{
+                text:
+                  jsonForm?.heading +
+                  " , Build your form in seconds with Namazeg!",
+                url: process.env.NEXT_PUBLIC_BASE_URL + "/aiform/" + record?.id,
+                title: jsonForm?.title,
+              }}
+              onClick={() => console.log("shared successfully!")}
+            >
+              <Button className="flex gap-2 bg-green-600 hover:bg-green-700">
+                <Share2 />
+                Share
+              </Button>
+            </RWebShare>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
