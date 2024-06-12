@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { clsx } from "clsx";
 import { LibraryBig, LineChart, MessageSquare, Shield } from "lucide-react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -46,7 +47,8 @@ export default function SideNav({}: Props) {
       <div className="min-h-screen shadow-md border hidden md:block">
         <div className="p-5">
           {navList.map((menu, index) => (
-            <h2
+            <Link
+              href={menu.path}
               key={index}
               className={`flex hover:text-white hover:bg-primary rounded-lg hover:cursor-pointer items-center p-5 mb-3 gap-3 ${
                 path === menu.path
@@ -56,7 +58,7 @@ export default function SideNav({}: Props) {
             >
               <menu.icon />
               {menu.name}
-            </h2>
+            </Link>
           ))}
         </div>
         <div className="bottom-20 p-6 w-64">
