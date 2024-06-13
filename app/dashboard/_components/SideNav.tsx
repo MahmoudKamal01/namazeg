@@ -1,11 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { db } from "@/configs";
+import { JsonForms } from "@/configs/schema";
+import { useUser } from "@clerk/nextjs";
 import { clsx } from "clsx";
+import { desc, eq } from "drizzle-orm";
 import { LibraryBig, LineChart, MessageSquare, Shield } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import FormList from "./FormList";
 
 type Props = {};
 
@@ -36,11 +41,30 @@ export default function SideNav({}: Props) {
       path: "/dashboard/upgrade",
     },
   ];
-
+  const { user } = useUser();
   const path = usePathname();
+  const [formList, setFormList] = useState<any>([]);
+  const [percFileCreated, setPercFileCreated] = useState(50);
+
   useEffect(() => {
-    console.log(path);
-  }, [path]);
+    if (user) {
+      GetFormList();
+    }
+  }, [path, user]);
+
+  const emailAddress = user?.primaryEmailAddress?.emailAddress;
+
+  const GetFormList = async () => {
+    const result: any = await db
+      .select()
+      .from(JsonForms)
+      .where(eq(JsonForms.createdBy, emailAddress!))
+      .orderBy(desc(JsonForms.id));
+    setFormList(result);
+    const formsCreated = Math.min(result.length, 10); // Limit to maximum of 10 forms
+    const perc = (formsCreated / 10) * 100; // Calculate percentage
+    setPercFileCreated(perc); // Update state with percentage
+  };
 
   return (
     <>
@@ -64,9 +88,12 @@ export default function SideNav({}: Props) {
         <div className="bottom-20 p-6 w-64">
           <Button className="w-full">+ Create Form</Button>
           <div className="my-7">
-            <Progress value={33} />
+            <div>
+              <progress max="100" value="80" className="html5" />
+            </div>
             <h2 className="text-sm mt-2 text-gray-600">
-              <strong>2 </strong>out of <strong>3</strong> files created
+              <strong>{formList.length}</strong> out of <strong>10</strong>{" "}
+              files created
             </h2>
             <h2 className="text-[10px] mt-2 text-gray-600">
               Upgrade your plan for unlimited AI forms
@@ -84,7 +111,6 @@ export default function SideNav({}: Props) {
               path === menu.path ? "text-primary" : "text-gray-500"
             }`}
             onClick={() => {
-              // Add navigation logic here, e.g., use a router or window.location.href
               window.location.href = menu.path;
             }}
           >
