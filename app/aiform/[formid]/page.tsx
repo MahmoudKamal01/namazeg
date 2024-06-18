@@ -46,6 +46,7 @@ export default function LiveAiForm({ params }: Props) {
             selectedTheme={record?.theme}
             editable={false}
             formId={record.id}
+            enableSignIn={record?.enableSignIn}
           />
         )}
       </div>

@@ -44,7 +44,7 @@ export default function SideNav({}: Props) {
   const { user } = useUser();
   const path = usePathname();
   const [formList, setFormList] = useState<any>([]);
-  const [percFileCreated, setPercFileCreated] = useState(50);
+  const [percFileCreated, setPercFileCreated] = useState(0);
 
   useEffect(() => {
     if (user) {
@@ -52,6 +52,10 @@ export default function SideNav({}: Props) {
     }
   }, [path, user]);
 
+  useEffect(
+    () => console.log("percFileCreated", percFileCreated),
+    [percFileCreated]
+  );
   const emailAddress = user?.primaryEmailAddress?.emailAddress;
 
   const GetFormList = async () => {
@@ -88,8 +92,11 @@ export default function SideNav({}: Props) {
         <div className="bottom-20 p-6 w-64">
           <Button className="w-full">+ Create Form</Button>
           <div className="my-7">
-            <div>
-              <progress max="100" value="80" className="html5" />
+            <div className="h-1 w-full bg-neutral-200 dark:bg-neutral-600">
+              <div
+                className="h-1 bg-primary"
+                style={{ width: percFileCreated + "%" }}
+              ></div>
             </div>
             <h2 className="text-sm mt-2 text-gray-600">
               <strong>{formList.length}</strong> out of <strong>10</strong>{" "}

@@ -171,6 +171,9 @@ export default function EditForm({ params }: Props) {
               updateControllerFields(value, "style");
               setSelectedBorderStyle(value);
             }}
+            setSignInEnable={(value: boolean) => {
+              updateControllerFields(value, "enableSignIn");
+            }}
           />
         </div>
         <div

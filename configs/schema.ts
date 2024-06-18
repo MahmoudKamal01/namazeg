@@ -1,4 +1,11 @@
-import { integer, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  serial,
+  text,
+  varchar,
+  boolean,
+} from "drizzle-orm/pg-core";
 
 export const JsonForms = pgTable("jsonForms", {
   id: serial("id").primaryKey(),
@@ -8,6 +15,7 @@ export const JsonForms = pgTable("jsonForms", {
   theme: varchar("theme"),
   background: varchar("background"),
   style: varchar("style"),
+  enableSignIn: boolean("enableSignIn").default(false),
 });
 
 export const userResponses = pgTable("userResponses", {

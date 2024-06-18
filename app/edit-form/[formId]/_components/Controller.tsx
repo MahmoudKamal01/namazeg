@@ -11,17 +11,20 @@ import { THEMES } from "@/app/_data/Themes";
 import GRADIENTS from "@/app/_data/GradientBg";
 import { Button } from "@/components/ui/button";
 import { borderStyles } from "@/app/_data/BorderStyles";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type Props = {
   selectedTheme: (theme: string) => void;
   selectedBackground: (bg: string) => void;
   selectedBorderStyle: any;
+  setSignInEnable: any;
 };
 
 export default function Controller({
   selectedTheme,
   selectedBackground,
   selectedBorderStyle,
+  setSignInEnable,
 }: Props) {
   const [showMore, setShowMore] = useState<boolean>(false);
 
@@ -125,6 +128,11 @@ export default function Controller({
             <p>Border</p>
           </div>
         </div>
+      </div>
+
+      <div className="flex gap-2 my-4 items-center mt-10 ">
+        <Checkbox onCheckedChange={(e) => setSignInEnable(e)} />
+        <h2>Enable Social Authentication before submit the form</h2>
       </div>
     </div>
   );

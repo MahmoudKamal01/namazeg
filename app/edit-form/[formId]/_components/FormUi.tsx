@@ -16,6 +16,8 @@ import { db } from "@/configs";
 import { userResponses } from "@/configs/schema";
 import moment from "moment";
 import { toast } from "sonner";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   jsonForm: jsonForm;
@@ -25,6 +27,7 @@ type Props = {
   selectedBorderStyle: any;
   editable?: boolean;
   formId: any;
+  enableSignIn?: boolean;
 };
 
 export default function FormUi({
@@ -35,11 +38,13 @@ export default function FormUi({
   selectedBorderStyle,
   editable = true,
   formId = 0,
+  enableSignIn = false,
 }: Props) {
   type FormData = any;
 
   const [formData, setFormData] = useState<FormData>({});
   const formRef = useRef<HTMLFormElement | null>(null);
+  const { user, isSignedIn } = useUser();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -187,10 +192,19 @@ export default function FormUi({
           )}
         </div>
       ))}
-
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
+      {!enableSignIn ? (
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      ) : isSignedIn ? (
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      ) : (
+        <Button>
+          <SignInButton mode="modal">Sign in before submit</SignInButton>
+        </Button>
+      )}
     </form>
   );
 }
