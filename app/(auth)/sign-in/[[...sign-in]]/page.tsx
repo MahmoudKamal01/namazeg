@@ -15,8 +15,8 @@ export default function Page() {
             alt="sign-in background"
             src="/pattern.jpg"
             className="absolute inset-0 h-full w-full"
-            height={1024}
-            width={1024}
+            height={2048}
+            width={2018}
           />
           {/* <div className="absolute inset-0 bg-white transition-opacity duration-300 opacity-50 hover:opacity-40" /> */}
           <div className="hidden lg:relative lg:block lg:p-12">

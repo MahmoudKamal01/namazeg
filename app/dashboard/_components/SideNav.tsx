@@ -30,12 +30,6 @@ export default function SideNav({}: Props) {
     },
     {
       id: 3,
-      name: "Analytics",
-      icon: LineChart,
-      path: "/dashboard/analytics",
-    },
-    {
-      id: 4,
       name: "Upgrade",
       icon: Shield,
       path: "/dashboard/upgrade",

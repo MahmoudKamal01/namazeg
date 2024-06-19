@@ -50,7 +50,7 @@ export default function LiveAiForm({ params }: Props) {
           />
         )}
       </div>
-      <div className="bottom-0  w-full flex items-center justify-center mt-20">
+      <div className="bottom-0 absolute w-full flex items-center justify-center mt-20">
         <Link
           className="flex items-center justify-center gap-2 bg-black text-white px-3  w-full"
           href="/"

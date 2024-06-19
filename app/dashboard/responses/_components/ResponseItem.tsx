@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { userResponses } from "@/configs/schema";
 import { db } from "@/configs";
 import { eq } from "drizzle-orm";
 import * as XLSX from "xlsx";
+
 type Props = { jsonForm: any; formRecord: any };
 
 export default function ResponseItem({ jsonForm, formRecord }: Props) {
   const [loading, setLoading] = useState(false);
+  const [responseCount, setResponseCount] = useState<number | null>(null);
 
   const ExportData = async () => {
     let jsonData: any = [];
@@ -25,6 +27,7 @@ export default function ResponseItem({ jsonForm, formRecord }: Props) {
         jsonData.push(jsonItem);
       });
       setLoading(false);
+      setResponseCount(jsonData.length);
     }
     console.log(jsonData);
     exportToExcel(jsonData);
@@ -34,8 +37,30 @@ export default function ResponseItem({ jsonForm, formRecord }: Props) {
     const worksheet = XLSX.utils.json_to_sheet(jsonData);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-    XLSX.writeFile(workbook, jsonForm.title || "form responses" + ".xlsx");
+    XLSX.writeFile(
+      workbook,
+      jsonForm.title + ".xlsx" || "form responses" + ".xlsx"
+    );
   };
+
+  useEffect(() => {
+    // Fetch initial response count when the component mounts
+    const fetchInitialResponseCount = async () => {
+      setLoading(true);
+      const result = await db
+        .select()
+        .from(userResponses)
+        .where(eq(userResponses.formRef, formRecord.id));
+
+      if (result) {
+        setResponseCount(result.length);
+      }
+      setLoading(false);
+    };
+
+    fetchInitialResponseCount();
+  }, [formRecord.id]);
+
   return (
     <div>
       <div className="border shadow-sm rounded-lg p-4 w-full flex flex-col justify-between">
@@ -48,7 +73,8 @@ export default function ResponseItem({ jsonForm, formRecord }: Props) {
         <hr className="my-4"></hr>
         <div className="flex justify-between items-center">
           <h2 className="text-sm">
-            <strong>45</strong> Responses
+            {loading ? "Loading..." : <strong>{responseCount}</strong>}{" "}
+            Responses
           </h2>
           <Button
             onClick={() => ExportData()}
