@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useEffect } from "react";
 import LogoIcon from "@/app/_components/LogoIcon";
 import FormUi from "@/app/edit-form/[formId]/_components/FormUi";
@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { form, jsonForm } from "@/types"; // Assuming these are relevant types
 import { JsonForms } from "@/configs/schema";
+import { Loader2 } from "lucide-react";
 
 const DEFAULT_FORM_DATA = {
   id: 0,
@@ -22,7 +23,8 @@ const DEFAULT_FORM_DATA = {
 type Props = { params: { formId: number } };
 function LiveAiForm({ params }: Props) {
   const [record, setRecord] = useState<form>(DEFAULT_FORM_DATA);
-  const [jsonForm, setJsonForm] = useState<jsonForm>({}); // Use empty object for jsonForm
+  const [jsonForm, setJsonForm] = useState<jsonForm>({});
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (params.formId) {
@@ -32,6 +34,7 @@ function LiveAiForm({ params }: Props) {
 
   const getFormData = async () => {
     try {
+      setLoading(true);
       const result = await db
         .select()
         .from(JsonForms)
@@ -50,28 +53,36 @@ function LiveAiForm({ params }: Props) {
       }
     } catch (error) {
       console.error("Error fetching form data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center animate-spin">
+        <Loader2 />
+      </div>
+    );
+  }
+
+  // Render only if record.id is truthy
+  return record.id ? (
     <div
       className="flex flex-col justify-center items-center min-h-screen border-none relative"
       style={{ backgroundImage: record.background }}
     >
       <div className="my-8 mx-2 p-8">
-        {record.id &&
-          jsonForm.title && ( // Check for both record and title
-            <FormUi
-              jsonForm={jsonForm}
-              onFieldUpdate={() => console.log("")}
-              deleteField={() => console.log("")}
-              selectedBorderStyle={record.style}
-              selectedTheme={record.theme}
-              editable={false}
-              formId={record.id}
-              enableSignIn={record.enableSignIn}
-            />
-          )}
+        <FormUi
+          jsonForm={jsonForm}
+          onFieldUpdate={() => console.log("")}
+          deleteField={() => console.log("")}
+          selectedBorderStyle={record.style}
+          selectedTheme={record.theme}
+          editable={false}
+          formId={record.id}
+          enableSignIn={record.enableSignIn}
+        />
       </div>
       <div className="bottom-0 absolute w-full flex items-center justify-center mt-20 text-sm md:text-lg">
         <Link href="/" className="w-full">
@@ -84,7 +95,7 @@ function LiveAiForm({ params }: Props) {
         </Link>
       </div>
     </div>
-  );
+  ) : null; // Render nothing if record.id is falsy
 }
 
 export default LiveAiForm;
