@@ -3,7 +3,7 @@
 Welcome to **Namazeg**, the ultimate AI-powered form builder using **Gemini AI**! 🚀
 
 
-  - ![Namazeg](https://img.shields.io/badge/Next.js-14-000000?style=flat&logo=next.js) 
+  - ![Namazeg](https://raw.githubusercontent.com/MahmoudKamal01/namazeg/22c3da5a373e414a41cfa21e9c6dffdd98cb0617/public/formlogo.svg) 
   - ![GeminiAi](https://img.shields.io/badge/Next.js-14-000000?style=flat&logo=next.js) 
 
 ## Overview
