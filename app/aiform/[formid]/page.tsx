@@ -26,7 +26,7 @@ function LiveAiForm({ params }: Props) {
   const [jsonForm, setJsonForm] = useState<jsonForm>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-
+  console.log("db", db);
   useEffect(() => {
     if (params.formId) {
       getFormData();
@@ -64,7 +64,7 @@ function LiveAiForm({ params }: Props) {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="pt-60">
+        <div className="pt-40">
           <Loader2 className="animate-spin" />
         </div>
       </div>
