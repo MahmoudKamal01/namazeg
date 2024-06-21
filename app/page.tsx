@@ -1,7 +1,4 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Hero from "./_components/Hero";
-import Feature from "./_components/Feature";
 import FeaturesSection from "./_components/FeaturesSection";
 import Footer from "./_components/Footer";
 

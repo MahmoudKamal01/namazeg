@@ -24,6 +24,7 @@ export interface form {
   background: string;
   createdAt: string;
   createdBy: string;
+  enableSignIn?: boolean;
   id: number;
   jsonform: string;
   style: string;
