@@ -38,7 +38,7 @@ function LiveAiForm({ params }: Props) {
   const [jsonForm, setJsonForm] = useState<jsonForm>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  console.log("db", params.formId);
+  console.log("db", params);
   useEffect(() => {
     if (params.formId) {
       getFormData();
@@ -50,7 +50,7 @@ function LiveAiForm({ params }: Props) {
       const result = await db
         .select()
         .from(JsonForms)
-        .where(eq(JsonForms.id, params.formId));
+        .where(eq(JsonForms.id, 35));
       console.log(result[0]);
       if (result.length) {
         const parsedForm = JSON.parse(result[0].jsonform);
