@@ -95,7 +95,9 @@ function LiveAiForm({ params }: Props) {
         </Link>
       </div>
     </div>
-  ) : null; // Render nothing if record.id is falsy
+  ) : (
+    <h1>An error has occurred</h1>
+  ); // Render nothing if record.id is falsy
 }
 
 export default LiveAiForm;
