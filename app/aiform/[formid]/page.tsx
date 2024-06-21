@@ -24,7 +24,8 @@ type Props = { params: { formId: number } };
 function LiveAiForm({ params }: Props) {
   const [record, setRecord] = useState<form>(DEFAULT_FORM_DATA);
   const [jsonForm, setJsonForm] = useState<jsonForm>({});
-  const [loading, setLoading] = useState<boolean>(true); // Start with loading true
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     if (params.formId) {
@@ -54,6 +55,7 @@ function LiveAiForm({ params }: Props) {
       }
     } catch (error) {
       console.error("Error fetching form data:", error);
+      setError("An error occurred while fetching form data.");
     } finally {
       setLoading(false);
     }
@@ -61,14 +63,19 @@ function LiveAiForm({ params }: Props) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center animate-spin">
-        <Loader2 />
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="pt-60">
+          <Loader2 className="animate-spin" />
+        </div>
       </div>
     );
   }
 
-  // Render only if record.id is truthy
-  return record.id ? (
+  if (error) {
+    return <h1>{error}</h1>;
+  }
+
+  return (
     <div
       className="flex flex-col justify-center items-center min-h-screen relative"
       style={{ backgroundImage: record.background }}
@@ -97,8 +104,6 @@ function LiveAiForm({ params }: Props) {
         </Link>
       </div>
     </div>
-  ) : (
-    <h1>An error has occurred</h1>
   );
 }
 
