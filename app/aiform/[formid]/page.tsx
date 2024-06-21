@@ -20,7 +20,7 @@ const DEFAULT_FORM_DATA = {
   enableSignIn: false,
 };
 
-type Props = { params: { formId: number } };
+type Props = { params: { formid: number } };
 function LiveAiForm({ params }: Props) {
   async function checkDatabaseConnection() {
     try {
@@ -38,12 +38,11 @@ function LiveAiForm({ params }: Props) {
   const [jsonForm, setJsonForm] = useState<jsonForm>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  console.log("db", params);
   useEffect(() => {
-    if (params.formId) {
+    if (params.formid) {
       getFormData();
     }
-  }, [params.formId]);
+  }, [params.formid]);
 
   const getFormData = async () => {
     try {
