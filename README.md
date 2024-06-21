@@ -2,7 +2,6 @@
 
 Welcome to **Namazeg**, the ultimate AI-powered form builder using **Gemini AI**! 🚀
 
-
 <p align="center">
   <img src="https://raw.githubusercontent.com/MahmoudKamal01/namazeg/22c3da5a373e414a41cfa21e9c6dffdd98cb0617/public/formlogo.svg" alt="Namazeg Logo" width="150" height="150"/>
   <img src="https://raw.githubusercontent.com/MahmoudKamal01/namazeg/d7b3549404b84bf0c289f22274ca57da657fcb1b/public/Google%20Ai%20Gemini.svg" alt="GeminiAi" width="150" height="150"/>
@@ -21,6 +20,7 @@ Users can preview the form in real-time, share it with applicants, and export re
 - **Customization**: Easily modify fields and adjust styles to match your vision. 🎨
 - **Shareable Forms**: Share your form with others for them to fill out. 📤
 - **Export Responses**: Export form responses as an Excel file for easy analysis. 📊
+- **Upgrade Plans**: Use Stripe to upgrade your plan for more features and capabilities. 💳
 
 ## Tech Stack
 
@@ -42,7 +42,11 @@ Namazeg is built with the latest and greatest technologies to ensure a smooth an
   - ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-336791?style=flat&logo=postgresql) PostgreSQL
 
 - **Authentication**:
+
   - ![Clerk](https://img.shields.io/badge/Clerk-2-FB3958?style=flat&logo=clerk) Clerk for auth
+
+- **Payments**:
+  - ![Stripe](https://img.shields.io/badge/Stripe-1-008CDD?style=flat&logo=stripe) Stripe for payment processing
 
 ## Get Started
 
@@ -52,6 +56,7 @@ Namazeg is built with the latest and greatest technologies to ensure a smooth an
 4. Preview the form in real-time.
 5. Share the form with others and start collecting responses.
 6. Export responses as an Excel file for further analysis.
+7. Upgrade your plan using Stripe for enhanced features and capabilities.
 
 ## Stay Tuned
 
