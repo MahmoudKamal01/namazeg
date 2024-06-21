@@ -51,7 +51,7 @@ function LiveAiForm({ params }: Props) {
         .select()
         .from(JsonForms)
         .where(eq(JsonForms.id, params.formId));
-
+      console.log(result[0]);
       if (result.length) {
         const parsedForm = JSON.parse(result[0].jsonform);
         setRecord({
