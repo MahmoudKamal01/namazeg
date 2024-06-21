@@ -22,6 +22,18 @@ const DEFAULT_FORM_DATA = {
 
 type Props = { params: { formId: number } };
 function LiveAiForm({ params }: Props) {
+  async function checkDatabaseConnection() {
+    try {
+      const forms = await db.select().from(JsonForms).limit(1);
+      console.log("First form:", forms[0]);
+    } catch (error) {
+      console.error("Unable to connect to the database:", error);
+    }
+  }
+
+  // Call the function to check the connection
+  checkDatabaseConnection();
+
   const [record, setRecord] = useState<form>(DEFAULT_FORM_DATA);
   const [jsonForm, setJsonForm] = useState<jsonForm>({});
   const [loading, setLoading] = useState<boolean>(true);
