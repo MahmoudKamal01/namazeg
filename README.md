@@ -1,38 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌟 Namazeg: AI Form Builder 🌟
 
-##
+Welcome to **Namazeg**, the ultimate AI-powered form builder using **Gemini AI**! 🚀
 
-## Getting Started
+## Overview
 
-First, run the development server:
+Namazeg allows users to effortlessly create forms by simply entering a description of the form they want to build. With the click of a button, the form is generated according to the user's specifications. Namazeg offers a wide range of customization options, including modifying fields, changing styles, backgrounds, themes, borders, and more.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Users can preview the form in real-time, share it with applicants, and export responses as an Excel file. 🌐
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **AI-Powered Form Creation**: Describe your form, and let Gemini AI do the rest! 🧠
+- **Live Preview**: See your form come to life as you make changes. 👀
+- **Customization**: Easily modify fields and adjust styles to match your vision. 🎨
+- **Shareable Forms**: Share your form with others for them to fill out. 📤
+- **Export Responses**: Export form responses as an Excel file for easy analysis. 📊
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Tech Stack
 
-## Learn More
+Namazeg is built with the latest and greatest technologies to ensure a smooth and efficient user experience:
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  - ![Next.js](https://img.shields.io/badge/Next.js-14-000000?style=flat&logo=next.js) Next.js 14
+  - ![TypeScript](https://img.shields.io/badge/TypeScript-4-3178C6?style=flat&logo=typescript) TypeScript
+  - ![React](https://img.shields.io/badge/React-17-61DAFB?style=flat&logo=react) React.js
+  - ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-2-38B2AC?style=flat&logo=tailwind-css) Tailwind CSS
+  - ![DaisyUI](https://img.shields.io/badge/DaisyUI-2-ECC94B?style=flat&logo=daisyui) DaisyUI for UI components
+  - ![Shadcn](https://img.shields.io/badge/Shadcn-1-FFA726?style=flat&logo=shadcn) Shadcn
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Backend**:
 
-## Deploy on Vercel
+  - ![Node.js](https://img.shields.io/badge/Node.js-14-339933?style=flat&logo=node.js) Node.js
+  - ![Drizzle ORM](https://img.shields.io/badge/Drizzle_ORM-1-FFDD00?style=flat&logo=drizzle-orm) Drizzle ORM
+  - ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-336791?style=flat&logo=postgresql) PostgreSQL
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Authentication**:
+  - ![Clerk](https://img.shields.io/badge/Clerk-2-FB3958?style=flat&logo=clerk) Clerk for auth
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Get Started
+
+1. Visit our [Dashboard](https://namazeg.vercel.app/dashboard) to start building your form.
+2. Enter a description of the form you want to create.
+3. Customize fields and styles to match your needs.
+4. Preview the form in real-time.
+5. Share the form with others and start collecting responses.
+6. Export responses as an Excel file for further analysis.
+
+## Stay Tuned
+
+We are continuously working on exciting new features and improvements. Stay tuned for future updates! 🎉
+
+For any inquiries or feedback, please contact me.
