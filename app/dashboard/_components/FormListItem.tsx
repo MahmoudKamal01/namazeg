@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useUser } from "@clerk/nextjs";
 import { db } from "@/configs";
-import { JsonForms } from "@/configs/schema";
+import { JsonForms, userResponses } from "@/configs/schema";
 import { and, eq } from "drizzle-orm";
 import { toast } from "sonner";
 import { RWebShare } from "react-web-share";
@@ -32,6 +32,10 @@ export default function FormListItem({ form, refreshData }: Props) {
 
     if (emailAddress) {
       onDeleteForm = async () => {
+        await db
+          .delete(userResponses)
+          .where(eq(userResponses.formRef, form.id));
+
         const result = await db
           .delete(JsonForms)
           .where(
