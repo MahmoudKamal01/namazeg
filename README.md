@@ -2,6 +2,10 @@
 
 Welcome to **Namazeg**, the ultimate AI-powered form builder using **Gemini AI**! 🚀
 
+
+  - ![Namazeg](https://img.shields.io/badge/Next.js-14-000000?style=flat&logo=next.js) 
+  - ![GeminiAi](https://img.shields.io/badge/Next.js-14-000000?style=flat&logo=next.js) 
+
 ## Overview
 
 Namazeg allows users to effortlessly create forms by simply entering a description of the form they want to build. With the click of a button, the form is generated according to the user's specifications. Namazeg offers a wide range of customization options, including modifying fields, changing styles, backgrounds, themes, borders, and more.
